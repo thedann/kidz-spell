@@ -1,18 +1,27 @@
 <template>
-  <input type="text" v-bind:class="{focused : isInFocus}" maxlength="1" v-on:change="$emit('update-text', $event, index)"/>
+  <input type="text" 
+    v-bind:class="{focused : isInFocus, correct : isCorrect}"
+    maxlength="1"
+    v-bind:disabled="!isInFocus"
+    v-autofocus="isInFocus"
+    @keyup="$emit('update-text', $event, index)"/>
 
 </template>
 
 <script>
+import Vue from "vue";
+import autofocus from "vue-autofocus-directive";
+Vue.directive("autofocus", autofocus);
+
 export default {
   name : "WordBox",
   props: {
     index: Number,
-    isInFocus: Boolean
+    isInFocus: Boolean,
+    isCorrect: Boolean
   },
   data: () => {
     return {
-
     }
   }
 }
@@ -34,8 +43,10 @@ export default {
     height: 3.5rem;
     width: 3.5rem;
     background: unset;
+  }
 
-
+  .correct {
+    background: #42b983;
   }
 </style>
 

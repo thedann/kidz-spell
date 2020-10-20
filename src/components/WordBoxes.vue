@@ -1,28 +1,62 @@
 <template>
-  <div class="box-wrapper">
+  <div class="box-wrapper" :key="word">
     <WordBox
-      v-for="(words, index) in wordSplit"
+      v-for="(words, index) in lettersInWord"
       :key="index"
-      v-on:update-text="callBack"
+      v-on:update-text="checkCorrect"
       :index="index"
       :isInFocus="indexInFocus === index"
+      :isCorrect="correctIndexes.includes(index)"
     >{{words}}</WordBox>
   </div>
 </template>
 
 <script>
 import WordBox from "@/components/WordBox.vue";
+import { makeEmptyArray } from "@/utils/util.js";
 
 export default {
-    components: {
+  components: {
     WordBox
   },
   props: {
-    wordSplit: Array,
-    callBack: Function,
-    indexInFocus: Number
+    word: String,
+    callBack: Function
+  },
+  data: () => {
+    return {
+      correctIndexes: [],
+      inputWord: [],
+      indexInFocus: 0
+    };
+  },
+  computed: {
+    lettersInWord: function() {
+      console.log("letters in word:::: ", this.word.split(""));
+      return this.word.split("");
+    }
+  },
+  methods: {
+    checkCorrect(el, index) {
+      const wordSplit = this.word.split("");
+      if (this.inputWord.length === 0) {
+        this.inputWord = makeEmptyArray(wordSplit);
+      }
+      const inputLetter = el.target.value.toUpperCase();
+      if (inputLetter === wordSplit[index]) {
+        this.correctIndexes.push(index);
+        this.indexInFocus = index + 1;
+        this.inputWord[index] = inputLetter;
+        const yourWord = this.inputWord.join("");
+        if (yourWord === this.word) {
+          this.callBack(yourWord);
+          this.indexInFocus = 0;
+          this.correctIndexes = [];
+        }
+      }
+    }
   }
-}
+};
 </script>
 
 <style scoped>

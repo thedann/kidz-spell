@@ -1,12 +1,11 @@
 <template>
   <div>
-    <h3 v-text="wordSplit.join('')"></h3>
+    <h3 v-text="this.currentWord"></h3>
     <div class="wrapper">
       <div class>
         <WordBoxes
-          :indexInFocus="this.indexInFocus"
-          :callBack="this.checkCorrect"
-          :wordSplit="this.wordSplit"
+          :callBack="this.updateScore"
+          :word="this.currentWord"
         ></WordBoxes>
       </div>
     </div>
@@ -19,8 +18,8 @@
 
 <script>
 import WordBoxes from "@/components/WordBoxes.vue";
+import { setTimeout } from 'timers';
 
-import { makeEmptyArray } from "@/utils/util.js";
 
 export default {
   components: {
@@ -28,26 +27,25 @@ export default {
   },
   data: () => {
     return {
-      wordSplit: ["H", "E", "J"],
-      inputWord: [],
       score: 0,
-      indexInFocus: 0
+      words: ["HEJ", "SOL", "FÅR", "BOLL", "FRÖKEN"],
+      currentWordIndex: 0,
+    
     };
   },
+  computed: {
+    currentWord: function() {
+      return this.words[this.currentWordIndex]
+    }
+  },
   methods: {
-    checkCorrect(el, index) {
-      if (this.inputWord.length === 0) {
-        this.inputWord = makeEmptyArray(this.wordSplit);
-      }
-      const inputLetter = el.target.value.toUpperCase();
-      if (inputLetter === this.wordSplit[index]) {
-        this.indexInFocus = index + 1;
-        this.inputWord[index] = inputLetter;
-        const yourWord = this.inputWord.join();
-        const theAnswer = this.wordSplit.join();
-        if (yourWord === theAnswer) {
-          this.score++;
-        }
+    updateScore(input) {
+      const correctWord = this.words[this.currentWordIndex]
+      if (input === correctWord) {
+        this.score++;
+        setTimeout(() => {
+          this.currentWordIndex++;
+        }, 200)
       }
     }
   }
