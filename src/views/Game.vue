@@ -1,13 +1,16 @@
 <template>
   <div>
-    <h1 v-text="this.currentWord"></h1>
-    <div class="wrapper">
-      <div class>
-        <WordBoxes
-          :callBack="this.updateScore"
-          :word="this.currentWord"
-        ></WordBoxes>
+    <div v-if="!complete">
+      <h1 v-text="this.currentWord"></h1>
+      <div class="wrapper">
+        <div class>
+          <WordBoxes :callBack="this.updateScore" :word="this.currentWord"></WordBoxes>
+        </div>
       </div>
+    </div>
+    <div v-if="complete">
+      <h1>KLAR!!</h1>
+      <h1>⭐️</h1>
     </div>
     <div class="scoreBoard">
       <span class="score-label">Poäng:</span>
@@ -18,8 +21,7 @@
 
 <script>
 import WordBoxes from "@/components/WordBoxes.vue";
-import { setTimeout } from 'timers';
-
+// import { setTimeout } from "timers";
 
 export default {
   components: {
@@ -28,24 +30,28 @@ export default {
   data: () => {
     return {
       score: 0,
-      words: ["HEJ", "SOL", "FÅR", "BOLL", "FRÖKEN"],
+      words: ["HEJ", "SOL"],
       currentWordIndex: 0,
-    
+      complete: false
     };
   },
   computed: {
     currentWord: function() {
-      return this.words[this.currentWordIndex]
+      return this.words[this.currentWordIndex];
     }
   },
   methods: {
     updateScore(input) {
-      const correctWord = this.words[this.currentWordIndex]
+      const correctWord = this.words[this.currentWordIndex];
       if (input === correctWord) {
         this.score++;
-        setTimeout(() => {
-          this.currentWordIndex++;
-        }, 200)
+        if (this.words.length > this.currentWordIndex + 1) {
+          // setTimeout(() => {
+            this.currentWordIndex++;
+          // }, 200);
+        } else {
+          this.complete = true;
+        }
       }
     }
   }

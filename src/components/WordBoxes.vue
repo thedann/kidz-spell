@@ -32,7 +32,6 @@ export default {
   },
   computed: {
     lettersInWord: function() {
-      console.log("letters in word:::: ", this.word.split(""));
       return this.word.split("");
     }
   },
