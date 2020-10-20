@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 v-text="this.currentWord"></h3>
+    <h1 v-text="this.currentWord"></h1>
     <div class="wrapper">
       <div class>
         <WordBoxes

@@ -3,16 +3,11 @@
     v-bind:class="{focused : isInFocus, correct : isCorrect}"
     maxlength="1"
     v-bind:disabled="!isInFocus"
-    v-autofocus="isInFocus"
     @keyup="$emit('update-text', $event, index)"/>
 
 </template>
 
 <script>
-import Vue from "vue";
-import autofocus from "vue-autofocus-directive";
-Vue.directive("autofocus", autofocus);
-
 export default {
   name : "WordBox",
   props: {
