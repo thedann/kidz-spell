@@ -8,10 +8,12 @@
         </div>
       </div>
     </div>
-    <div v-if="complete">
-      <h1>KLAR!!</h1>
-      <h1>⭐️</h1>
-    </div>
+    <transition name="fade">
+      <div v-if="complete">
+        <h1>KLAR!!</h1>
+        <h1>⭐️</h1>
+      </div>
+    </transition>
     <div class="scoreBoard">
       <span class="score-label">Poäng:</span>
       <span>{{score}}</span>
@@ -30,7 +32,7 @@ export default {
   data: () => {
     return {
       score: 0,
-      words: ["HEJ", "SOL"],
+      words: ["HEJ", "SOL", "LÄRARE"],
       currentWordIndex: 0,
       complete: false
     };
@@ -47,7 +49,7 @@ export default {
         this.score++;
         if (this.words.length > this.currentWordIndex + 1) {
           // setTimeout(() => {
-            this.currentWordIndex++;
+          this.currentWordIndex++;
           // }, 200);
         } else {
           this.complete = true;
@@ -76,6 +78,13 @@ export default {
 
 .scoreBoard .score-label {
   font-size: 3rem;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
 

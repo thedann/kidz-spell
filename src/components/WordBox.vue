@@ -1,6 +1,6 @@
 <template>
   <input type="text" 
-    v-bind:class="{focused : isInFocus, correct : isCorrect}"
+    v-bind:class="{focused : isInFocus, correct : isCorrect, inCorrect : isInCorrect}"
     maxlength="1"
     v-bind:disabled="!isInFocus"
     @keyup="$emit('update-text', $event, index)"/>
@@ -13,7 +13,8 @@ export default {
   props: {
     index: Number,
     isInFocus: Boolean,
-    isCorrect: Boolean
+    isCorrect: Boolean,
+    isInCorrect: Boolean
   },
   data: () => {
     return {
@@ -47,6 +48,11 @@ export default {
 
   .correct {
     background: #42b983;
+    opacity: 1;
+  }
+
+  .inCorrect {
+    background: lightcoral;
     opacity: 1;
   }
 </style>

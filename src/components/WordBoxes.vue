@@ -1,5 +1,5 @@
 <template>
-  <div class="box-wrapper" :key="word">
+  <transition-group class="box-wrapper" :key="word">
     <WordBox
       v-for="(words, index) in lettersInWord"
       :key="index"
@@ -7,8 +7,9 @@
       :index="index"
       :isInFocus="indexInFocus === index"
       :isCorrect="correctIndexes.includes(index)"
+      :isInCorrect="inCorrectIndexes.includes(index)"
     >{{words}}</WordBox>
-  </div>
+  </transition-group>
 </template>
 
 <script>
@@ -26,6 +27,7 @@ export default {
   data: () => {
     return {
       correctIndexes: [],
+      inCorrectIndexes: [],
       inputWord: [],
       indexInFocus: 0
     };
@@ -43,6 +45,7 @@ export default {
       }
       const inputLetter = el.target.value.toUpperCase();
       if (inputLetter === wordSplit[index]) {
+        this.inCorrectIndexes = [];
         this.correctIndexes.push(index);
         this.indexInFocus = index + 1;
         this.inputWord[index] = inputLetter;
@@ -52,6 +55,8 @@ export default {
           this.indexInFocus = 0;
           this.correctIndexes = [];
         }
+      } else {
+        this.inCorrectIndexes.push(index);
       }
     }
   }
@@ -67,6 +72,21 @@ export default {
   max-width: 40rem;
   min-width: 15rem;
 }
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
 </style>
 
 
