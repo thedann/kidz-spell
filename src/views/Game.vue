@@ -2,10 +2,16 @@
   <div>
     <div v-if="!complete">
       <h1 v-text="this.currentWord"></h1>
+      <transition name="slide" v-if="this.clearedWord">
+        <span>Hurra🙌! Du stavade rätt till {{this.currentWord}}</span>
+      </transition>
       <div class="wrapper">
-        <div class>
+        <transition name="fade" v-if="!this.clearedWord">
           <WordBoxes :callBack="this.updateScore" :word="this.currentWord"></WordBoxes>
-        </div>
+        </transition>
+        <!-- <transition v-if="this.clearedWord">
+          <span>Hurra!!</span>
+        </transition> -->
       </div>
     </div>
     <transition name="fade">
@@ -23,7 +29,6 @@
 
 <script>
 import WordBoxes from "@/components/WordBoxes.vue";
-// import { setTimeout } from "timers";
 
 export default {
   components: {
@@ -34,7 +39,8 @@ export default {
       score: 0,
       words: ["HEJ", "SOL", "LÄRARE"],
       currentWordIndex: 0,
-      complete: false
+      complete: false,
+      clearedWord: false
     };
   },
   computed: {
@@ -48,9 +54,11 @@ export default {
       if (input === correctWord) {
         this.score++;
         if (this.words.length > this.currentWordIndex + 1) {
-          // setTimeout(() => {
-          this.currentWordIndex++;
-          // }, 200);
+          this.clearedWord = true;
+          setTimeout(() => {
+            this.currentWordIndex++;
+            this.clearedWord = false;
+          }, 1500);
         } else {
           this.complete = true;
         }
@@ -80,12 +88,18 @@ export default {
   font-size: 3rem;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 1.5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+
+/* .slide-enter-active,
+.slide-leace-active {
+  transition: 
+} */
 </style>
 
 

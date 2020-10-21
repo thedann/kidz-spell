@@ -1,5 +1,5 @@
 <template>
-  <transition-group class="box-wrapper" :key="word">
+  <transition-group name="slide" class="box-wrapper" :key="word">
     <WordBox
       v-for="(words, index) in lettersInWord"
       :key="index"
@@ -39,24 +39,26 @@ export default {
   },
   methods: {
     checkCorrect(el, index) {
-      const wordSplit = this.word.split("");
-      if (this.inputWord.length === 0) {
-        this.inputWord = makeEmptyArray(wordSplit);
-      }
       const inputLetter = el.target.value.toUpperCase();
-      if (inputLetter === wordSplit[index]) {
-        this.inCorrectIndexes = [];
-        this.correctIndexes.push(index);
-        this.indexInFocus = index + 1;
-        this.inputWord[index] = inputLetter;
-        const yourWord = this.inputWord.join("");
-        if (yourWord === this.word) {
-          this.callBack(yourWord);
-          this.indexInFocus = 0;
-          this.correctIndexes = [];
+      if(inputLetter) {
+        const wordSplit = this.word.split("");
+        if (this.inputWord.length === 0) {
+          this.inputWord = makeEmptyArray(wordSplit);
         }
-      } else {
-        this.inCorrectIndexes.push(index);
+        if (inputLetter === wordSplit[index]) {
+          this.inCorrectIndexes = [];
+          this.correctIndexes.push(index);
+          this.indexInFocus = index + 1;
+          this.inputWord[index] = inputLetter;
+          const yourWord = this.inputWord.join("");
+          if (yourWord === this.word) {
+            this.callBack(yourWord);
+            this.indexInFocus = 0;
+            this.correctIndexes = [];
+          }
+        } else {
+          this.inCorrectIndexes.push(index);
+        }
       }
     }
   }
