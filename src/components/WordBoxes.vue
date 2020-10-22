@@ -40,7 +40,7 @@ export default {
   methods: {
     checkCorrect(el, index) {
       const inputLetter = el.target.value.toUpperCase();
-      if(inputLetter) {
+      if (inputLetter) {
         const wordSplit = this.word.split("");
         if (this.inputWord.length === 0) {
           this.inputWord = makeEmptyArray(wordSplit);
@@ -69,26 +69,42 @@ export default {
 .box-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  max-width: 40rem;
-  min-width: 15rem;
+  flex-wrap: wrap;
+}
+
+.box-wrapper input {
+  margin-right: 1.5rem;
+}
+
+.box-wrapper input:last-child {
+  margin-right: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .box-wrapper {
+    max-width: 320px;
+  }
+
+  .box-wrapper input {
+    margin-right: 0.5rem;
+  }
 }
 
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 .slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
 }
-
 </style>
 
 

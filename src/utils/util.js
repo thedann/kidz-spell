@@ -5,3 +5,23 @@ export function makeEmptyArray(original) {
   }
   return copy;
 }
+
+export function getQuestionsFromLocalStorage() {
+  let keyExist = localStorage.getItem("kidzspell:questions");
+  let resultArray = [];
+
+  if (keyExist) {
+    resultArray = JSON.parse(localStorage.getItem("kidzspell:questions"));
+  }
+
+  return resultArray;
+}
+
+export function addQuestionToLocalStorage(question) {
+  question = question.toUpperCase();
+  let existingQuestions = getQuestionsFromLocalStorage();
+  existingQuestions.push(question);
+  const questionsToSave = JSON.stringify(existingQuestions);
+
+  localStorage.setItem("kidzspell:questions", questionsToSave);
+}

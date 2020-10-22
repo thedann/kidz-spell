@@ -3,7 +3,7 @@
     <div v-if="!complete">
       <h1 v-text="this.currentWord"></h1>
       <transition name="slide" v-if="this.clearedWord">
-        <span>Hurra🙌! Du stavade rätt till {{this.currentWord}}</span>
+        <span class="congratz">Hurra🙌! Du stavade rätt till {{this.currentWord}}</span>
       </transition>
       <div class="wrapper">
         <transition name="fade" v-if="!this.clearedWord">
@@ -11,12 +11,12 @@
         </transition>
         <!-- <transition v-if="this.clearedWord">
           <span>Hurra!!</span>
-        </transition> -->
+        </transition>-->
       </div>
     </div>
     <transition name="fade">
       <div v-if="complete">
-        <h1>KLAR!!</h1>
+        <h1>Hurra! Du stavade rätt till alla ord!</h1>
         <h1>⭐️</h1>
       </div>
     </transition>
@@ -29,6 +29,9 @@
 
 <script>
 import WordBoxes from "@/components/WordBoxes.vue";
+import {
+  getQuestionsFromLocalStorage
+} from "@/utils/util.js";
 
 export default {
   components: {
@@ -37,7 +40,7 @@ export default {
   data: () => {
     return {
       score: 0,
-      words: ["HEJ", "SOL", "LÄRARE"],
+      words: getQuestionsFromLocalStorage(),
       currentWordIndex: 0,
       complete: false,
       clearedWord: false
@@ -86,6 +89,10 @@ export default {
 
 .scoreBoard .score-label {
   font-size: 3rem;
+}
+
+.congratz {
+  font-size: 2rem;
 }
 
 .fade-enter-active,
