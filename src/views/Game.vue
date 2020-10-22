@@ -1,37 +1,41 @@
 <template>
   <div>
-    <div v-if="!complete">
-      <h1 v-text="this.currentWord"></h1>
-      <transition name="slide" v-if="this.clearedWord">
-        <span class="congratz">Hurra🙌! Du stavade rätt till {{this.currentWord}}</span>
-      </transition>
-      <div class="wrapper">
-        <transition name="fade" v-if="!this.clearedWord">
-          <WordBoxes :callBack="this.updateScore" :word="this.currentWord"></WordBoxes>
-        </transition>
-        <!-- <transition v-if="this.clearedWord">
-          <span>Hurra!!</span>
-        </transition>-->
-      </div>
+    <div v-if="words.length === 0">
+      <h3>Du har inte skapat ett spel ännu</h3>
+      <p>Vänligen gå in på <b>Skapa ett spel</b> för att skapa ett spel</p>
     </div>
-    <transition name="fade">
-      <div v-if="complete">
-        <h1>Hurra! Du stavade rätt till alla ord!</h1>
-        <h1>⭐️</h1>
+    <div v-if="words">
+      <div v-if="!complete">
+        <h1 v-text="this.currentWord"></h1>
+        <transition name="slide" v-if="this.clearedWord">
+          <span class="congratz">Hurra🙌! Du stavade rätt till {{this.currentWord}}</span>
+        </transition>
+        <div class="wrapper">
+          <transition name="fade" v-if="!this.clearedWord">
+            <WordBoxes :callBack="this.updateScore" :word="this.currentWord"></WordBoxes>
+          </transition>
+          <!-- <transition v-if="this.clearedWord">
+          <span>Hurra!!</span>
+          </transition>-->
+        </div>
       </div>
-    </transition>
-    <div class="scoreBoard">
-      <span class="score-label">Poäng:</span>
-      <span>{{score}}</span>
+      <transition name="fade">
+        <div v-if="complete">
+          <h1>Hurra! Du stavade rätt till alla ord!</h1>
+          <h1>⭐️</h1>
+        </div>
+      </transition>
+      <div class="scoreBoard">
+        <span class="score-label">Poäng:</span>
+        <span>{{score}}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import WordBoxes from "@/components/WordBoxes.vue";
-import {
-  getQuestionsFromLocalStorage
-} from "@/utils/util.js";
+import { getQuestionsFromLocalStorage } from "@/utils/util.js";
 
 export default {
   components: {

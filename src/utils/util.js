@@ -25,3 +25,7 @@ export function addQuestionToLocalStorage(question) {
 
   localStorage.setItem("kidzspell:questions", questionsToSave);
 }
+
+export function cleanLocalStorage() {
+  localStorage.removeItem("kidzspell:questions");
+}

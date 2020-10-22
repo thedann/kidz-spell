@@ -4,26 +4,38 @@
 
     <input type="text" class="text" v-model="currentInput" placeholder="skriv ett ord">
     <br>
-    <button class="button" v-on:click="addQuestion" type="button">Lägg till ord i spelet</button>
+    <button
+      class="button positive-button"
+      v-on:click="addQuestion"
+      type="button"
+    >Lägg till ord i spelet</button>
 
     <ul>
       <li v-for="(question, index) in questions" :key="index" v-text="question"></li>
     </ul>
+
+    <br>
+    <button
+      v-if="questions.length > 0"
+      class="button negative-button"
+      v-on:click="removeAllQuestions"
+      type="button"
+    >Rensa spelet</button>
   </div>
 </template>
 
 <script>
 import {
   getQuestionsFromLocalStorage,
-  addQuestionToLocalStorage
+  addQuestionToLocalStorage,
+  cleanLocalStorage
 } from "@/utils/util.js";
 export default {
   name: "CreateGame",
   data: () => {
     return {
       currentInput: "",
-      questions: getQuestionsFromLocalStorage(),
-      newlyAddedQuestions: []
+      questions: getQuestionsFromLocalStorage()
     };
   },
   computed: {},
@@ -32,12 +44,11 @@ export default {
       addQuestionToLocalStorage(this.currentInput);
       this.questions = getQuestionsFromLocalStorage();
 
-      //if you added your first question. Let's reload the page so the menu updates
-      if (this.questions.length === 1) {
-        window.location.reload();
-      } else {
-        this.currentInput = "";
-      }
+      this.currentInput = "";
+    },
+    removeAllQuestions: function() {
+      cleanLocalStorage();
+      this.questions = [];
     }
   }
 };
@@ -60,6 +71,26 @@ export default {
   min-height: 3rem;
   min-width: 15rem;
   margin-top: 1rem;
+  border-radius: 10px;
+  background: transparent;
+}
+
+.button:hover {
+  background: #42b983;
+  cursor: pointer;
+}
+
+.positive-button {
+  border: 2px solid #42b983;
+}
+
+.negative-button {
+  border: 2px solid lightcoral;
+  min-width: 10rem;
+}
+
+.negative-button:hover {
+  background: lightcoral;
 }
 
 ul {

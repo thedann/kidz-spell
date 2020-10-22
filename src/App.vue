@@ -7,19 +7,19 @@
         v-on="mobileMenuIsOpen ? { click : closeMobileMenu } : {}"
       >
         <button v-on:click="toggleMobileMenu">
-          <img v-if="!mobileMenuIsOpen" :src="require('./assets/menu-alt.png')">
-          <img v-if="mobileMenuIsOpen" :src="require('./assets/close.png')">
+          <img v-bind:class="{hidden : mobileMenuIsOpen }" :src="require('./assets/menu-alt.png')">
+          <img v-bind:style="{hidden : !mobileMenuIsOpen }" v-if="mobileMenuIsOpen" :src="require('./assets/close.png')">
         </button>
         <div class="mobile-menu" v-bind:class="{'mobile-menu-open' : mobileMenuIsOpen}">
           <router-link to="/">Hem</router-link>
-          <router-link v-if="questions.length > 0" to="/game">Spela</router-link>
+          <router-link to="/game">Spela</router-link>
           <router-link to="/create-game">Skapa ett spel</router-link>
           <router-link to="/about">Om KidzSpell</router-link>
         </div>
       </div>
       <div id="nav">
         <router-link to="/">Hem</router-link>
-        <router-link v-if="questions.length > 0" to="/game">Spela</router-link>
+        <router-link to="/game">Spela</router-link>
         <router-link to="/create-game">Skapa ett spel</router-link>
         <router-link to="/about">Om KidzSpell</router-link>
       </div>
@@ -76,6 +76,10 @@ body {
   color: #2c3e50;
   min-height: 95vh;
   border-radius: 50px;
+}
+
+.hidden {
+  display: none;
 }
 
 #nav {
@@ -147,6 +151,7 @@ body {
   #mobile-nav button img {
     max-width: 100%;
     max-height: 100%;
+    background: './assets/menu-alt.png'
   }
 
   .mobile-menu {
