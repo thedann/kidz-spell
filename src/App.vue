@@ -1,7 +1,11 @@
 <template>
-  <div class="app-wrapper" v-click-outside="closeMobileMenu">
+  <div class="app-wrapper">
     <div id="app">
-      <div id="mobile-nav">
+      <div
+        id="mobile-nav"
+        v-bind:class="{menuIsOpen : mobileMenuIsOpen}"
+        v-on="mobileMenuIsOpen ? { click : closeMobileMenu } : {}"
+      >
         <button v-on:click="toggleMobileMenu">
           <img :src="require('./assets/menu-alt.png')">
         </button>
@@ -132,6 +136,10 @@ body {
     top: 0;
     width: 100%;
     background: #42b983;
+  }
+
+  #mobile-nav.menuIsOpen {
+    height: 100%;
   }
 
   #mobile-nav button {
