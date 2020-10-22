@@ -11,7 +11,12 @@
     >Lägg till ord i spelet</button>
 
     <ul>
-      <li v-for="(question, index) in questions" :key="index" v-text="question"></li>
+      <li v-for="(question, index) in questions" :key="index">
+        {{question}}
+        <span class="remove-item" @click="removeQuestion(index)">
+          <b>X</b>
+        </span>
+      </li>
     </ul>
 
     <br>
@@ -28,7 +33,8 @@
 import {
   getQuestionsFromLocalStorage,
   addQuestionToLocalStorage,
-  cleanLocalStorage
+  cleanLocalStorage,
+  removeQuestionFromLocalStorage
 } from "@/utils/util.js";
 export default {
   name: "CreateGame",
@@ -49,6 +55,10 @@ export default {
     removeAllQuestions: function() {
       cleanLocalStorage();
       this.questions = [];
+    },
+    removeQuestion: function(index) {
+      removeQuestionFromLocalStorage(index);
+      this.questions.splice(index, 1);
     }
   }
 };
@@ -101,6 +111,12 @@ ul {
 
 ul li {
   font-size: 1.5rem;
+}
+
+.remove-item:hover {
+  cursor: pointer;
+  color: lightcoral;
+
 }
 
 @media only screen and (max-width: 600px) {

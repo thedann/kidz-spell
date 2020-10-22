@@ -19,8 +19,7 @@
       </p>
 
       <p>
-        När du har skapat spelet i <b>Skapa ett spel</b>, så kommer du få fram alternativet i menyn att <b>Spela</b>.
-        Klicka på <b>Spela</b> för att starta.
+        När du har skapat spelet i <b>Skapa ett spel</b>, så kan du klicka in på <b>Spela</b> för att börja spela.
       </p>
       <p>
         <br/>
@@ -36,3 +35,8 @@ export default {
   components: {}
 };
 </script>
+
+<style scoped>
+
+</style>
+

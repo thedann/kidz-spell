@@ -23,7 +23,9 @@
         <router-link to="/create-game">Skapa ett spel</router-link>
         <router-link to="/about">Om KidzSpell</router-link>
       </div>
-      <router-view/>
+      <div class="router-view-container">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
@@ -65,6 +67,11 @@ body {
   padding: 0.5rem;
   background: #42b983;
   min-height: 100vh;
+}
+
+.router-view-container {
+  max-width: 60rem;
+  margin: auto;
 }
 
 #app {

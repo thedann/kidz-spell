@@ -29,3 +29,10 @@ export function addQuestionToLocalStorage(question) {
 export function cleanLocalStorage() {
   localStorage.removeItem("kidzspell:questions");
 }
+
+export function removeQuestionFromLocalStorage(index) {
+  let questions = getQuestionsFromLocalStorage();
+  questions.splice(index, 1);
+  questions = JSON.stringify(questions);
+  localStorage.setItem("kidzspell:questions", questions);
+}
