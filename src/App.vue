@@ -7,10 +7,11 @@
         v-on="mobileMenuIsOpen ? { click : closeMobileMenu } : {}"
       >
         <button v-on:click="toggleMobileMenu">
-          <img :src="require('./assets/menu-alt.png')">
+          <img v-if="!mobileMenuIsOpen" :src="require('./assets/menu-alt.png')">
+          <img v-if="mobileMenuIsOpen" :src="require('./assets/close.png')">
         </button>
-        <div v-if="mobileMenuIsOpen" class="mobile-menu">
-          <router-link v-on:click="closeMobileMenu" to="/">Hem</router-link>
+        <div class="mobile-menu" v-bind:class="{'mobile-menu-open' : mobileMenuIsOpen}">
+          <router-link to="/">Hem</router-link>
           <router-link v-if="questions.length > 0" to="/game">Spela</router-link>
           <router-link to="/create-game">Skapa ett spel</router-link>
           <router-link to="/about">Om KidzSpell</router-link>
@@ -106,15 +107,9 @@ body {
   display: none;
 }
 
-.mobile-menu {
-  display: none;
-}
-
 @media only screen and (max-width: 600px) {
   .app-wrapper {
     display: block;
-    /* padding: 0.5rem; */
-    /* background: #42b983; */
     min-height: 100vh;
   }
 
@@ -139,7 +134,7 @@ body {
   }
 
   #mobile-nav.menuIsOpen {
-    height: 100%;
+    position: fixed;
   }
 
   #mobile-nav button {
@@ -155,12 +150,21 @@ body {
   }
 
   .mobile-menu {
-    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-content: flex-start;
     background: #42b983;
+    top: 3rem;
     width: 100vw;
+    display: flex;
+    height: 100vh;
+    left: -100%;
+    position: absolute;
+    transition: left .75s;
+  }
+
+  .mobile-menu.mobile-menu-open {
+    left: 0;
   }
 
   .mobile-menu a {
@@ -168,6 +172,8 @@ body {
     font-size: 1.5rem;
     text-decoration: none;
     border-bottom: 1px solid white;
+    padding: 0.5rem 0;
+    display: inline;
   }
 
   .mobile-menu a:hover {

@@ -1,6 +1,6 @@
 <template>
   <div class="start-page">
-    <h1>Välkommen till Kidzspell!</h1>
+    <h1>Välkommen till KidzSpell!</h1>
     <p>
       <b>KidzSpell</b> är ett enkelt spel som hjälper barn att lära sig stava,
       samt att lära sig känna igen symboler på tangentbordet.
