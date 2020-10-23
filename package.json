@@ -2,6 +2,7 @@
   "name": "kidz-spell",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "scripts": {
     "start": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
@@ -10,6 +11,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "gh-pages": "^3.1.0",
+    "save-dev": "0.0.1-security",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0"
   },
