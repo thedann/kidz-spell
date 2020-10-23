@@ -14,7 +14,7 @@
 
 <script>
 import WordBox from "@/components/WordBox.vue";
-import { makeEmptyArray } from "@/utils/util.js";
+import { makeEmptyArray, setFocus } from "@/utils/util.js";
 
 export default {
   components: {
@@ -34,8 +34,16 @@ export default {
   },
   computed: {
     lettersInWord: function() {
-      return this.word.split("");
+      if (this.word) {
+        return this.word.split("");
+      }
+      return [];
     }
+  },
+  mounted: function() {
+    this.$nextTick(function() {
+      setFocus("box_0");
+    });
   },
   methods: {
     checkCorrect(el, index) {
@@ -51,10 +59,14 @@ export default {
           this.indexInFocus = index + 1;
           this.inputWord[index] = inputLetter;
           const yourWord = this.inputWord.join("");
+
           if (yourWord === this.word) {
             this.callBack(yourWord);
             this.indexInFocus = 0;
             this.correctIndexes = [];
+          } else {
+            const nextIndex = index + 1;
+            setFocus("box_" + nextIndex);
           }
         } else {
           this.inCorrectIndexes.push(index);

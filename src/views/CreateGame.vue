@@ -2,7 +2,14 @@
   <div>
     <h3>Skapa ett spel</h3>
 
-    <input type="text" class="text" v-model="currentInput" placeholder="skriv ett ord">
+    <input
+      id="new_word"
+      type="text"
+      class="text"
+      v-on:keyup.enter="addQuestion"
+      v-model="currentInput"
+      placeholder="skriv ett ord"
+    >
     <br>
     <button
       class="button positive-button"
@@ -20,6 +27,10 @@
     </ul>
 
     <br>
+    <router-link v-if="questions.length > 0" class="button positive-button" to="/game">
+      <span>Spela</span>
+    </router-link>
+    <br>
     <button
       v-if="questions.length > 0"
       class="button negative-button"
@@ -34,7 +45,8 @@ import {
   getQuestionsFromLocalStorage,
   addQuestionToLocalStorage,
   cleanLocalStorage,
-  removeQuestionFromLocalStorage
+  removeQuestionFromLocalStorage,
+  setFocus
 } from "@/utils/util.js";
 export default {
   name: "CreateGame",
@@ -44,13 +56,18 @@ export default {
       questions: getQuestionsFromLocalStorage()
     };
   },
-  computed: {},
+  mounted: function() {
+    this.$nextTick(function() {
+      setFocus("new_word");
+    });
+  },
   methods: {
     addQuestion: function() {
-      addQuestionToLocalStorage(this.currentInput);
-      this.questions = getQuestionsFromLocalStorage();
-
-      this.currentInput = "";
+      if (this.currentInput) {
+        addQuestionToLocalStorage(this.currentInput);
+        this.questions = getQuestionsFromLocalStorage();
+        this.currentInput = "";
+      }
     },
     removeAllQuestions: function() {
       cleanLocalStorage();
@@ -83,6 +100,13 @@ export default {
   margin-top: 1rem;
   border-radius: 10px;
   background: transparent;
+  text-decoration: none;
+}
+
+a.button {
+  padding: 0.5rem 2rem;
+  color: black;
+  margin-bottom: 2rem;
 }
 
 .button:hover {
@@ -91,12 +115,13 @@ export default {
 }
 
 .positive-button {
-  border: 2px solid #42b983;
+  border: 5px solid #42b983;
 }
 
 .negative-button {
-  border: 2px solid lightcoral;
+  border: 5px solid lightcoral;
   min-width: 10rem;
+  margin-top: 3rem;
 }
 
 .negative-button:hover {
@@ -116,7 +141,6 @@ ul li {
 .remove-item:hover {
   cursor: pointer;
   color: lightcoral;
-
 }
 
 @media only screen and (max-width: 600px) {

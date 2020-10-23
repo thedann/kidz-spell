@@ -1,5 +1,6 @@
 <template>
   <input
+    :id=idString
     type="text"
     v-bind:class="{focused : isInFocus, correct : isCorrect, inCorrect : isInCorrect}"
     maxlength="1"
@@ -17,6 +18,12 @@ export default {
     isCorrect: Boolean,
     isInCorrect: Boolean
   },
+  computed: {
+    idString() {
+      return "box_" + this.index
+    }
+  },
+  
   data: () => {
     return {};
   }

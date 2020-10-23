@@ -36,3 +36,10 @@ export function removeQuestionFromLocalStorage(index) {
   questions = JSON.stringify(questions);
   localStorage.setItem("kidzspell:questions", questions);
 }
+
+export function setFocus(id) {
+  setTimeout(() => {
+    const element = document.getElementById(id);
+    element.focus();
+  }, 10);
+}

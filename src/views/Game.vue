@@ -10,13 +10,10 @@
         <transition name="slide" v-if="this.clearedWord">
           <span class="congratz">Hurra🙌! Du stavade rätt till {{this.currentWord}}</span>
         </transition>
-        <div class="wrapper">
+        <div class="wrapper" >
           <transition name="fade" v-if="!this.clearedWord">
             <WordBoxes :callBack="this.updateScore" :word="this.currentWord"></WordBoxes>
           </transition>
-          <!-- <transition v-if="this.clearedWord">
-          <span>Hurra!!</span>
-          </transition>-->
         </div>
       </div>
       <transition name="fade">
