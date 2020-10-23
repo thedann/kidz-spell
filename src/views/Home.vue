@@ -7,23 +7,29 @@
     </p>
 
     <h3>Kom igång!</h3>
-    <p>Klicka på länken <b>Skapa ett spel</b> uppe i huvudmenyn.</p>
     <p>
-      Här inne kan du lägga till ord i spelet som barnen spelar.
-      Orden sparas bara lokalt i din webbläsare, så du behöver
-      skapa spelet på samma enhet som du har tänkt att låta barnen spela på.
+      Klicka på länken
+      <b>Skapa ett spel</b> uppe i huvudmenyn.
+    </p>
+    <p>Här inne kan du lägga till ord i spelet som barnen spelar.</p>
+    <p>
+      Orden sparas bara i din webbläsare, så du behöver
+      skapa spelet på samma enhet (dator, telefon, surfplatta) som du har tänkt att låta barnen spela på.
     </p>
     <p>
-      Där går jättebra att stänga ner webbläsaren och surfa in till <b>KidzSpell</b> igen senare. <br/>
-      Dina frågor kommer vara sparade. 
-      </p>
+      Där går jättebra att stänga ner webbläsaren och surfa in till
+      <b>KidzSpell</b> igen senare.
+      <br>Dina frågor kommer vara sparade.
+    </p>
 
-      <p>
-        När du har skapat spelet i <b>Skapa ett spel</b>, så kan du klicka in på <b>Spela</b> för att börja spela.
-      </p>
-      <p>
-        <br/>
-        </p>
+    <p>
+      När du har skapat spelet i
+      <b>Skapa ett spel</b>, så kan du klicka in på
+      <b>Spela</b> för att börja spela.
+    </p>
+    <p>
+      <br>
+    </p>
   </div>
 </template>
 
@@ -37,6 +43,5 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
 

@@ -42,7 +42,9 @@ export default {
   },
   mounted: function() {
     this.$nextTick(function() {
-      setFocus("box_0");
+      if (this.word) {
+        setFocus("box_0");
+      }
     });
   },
   methods: {

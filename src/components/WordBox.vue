@@ -32,15 +32,14 @@ export default {
 
 <style scoped>
 input {
-  border: 1px solid black;
+  border: 1px solid rgb(190, 184, 184);
   height: 3.5rem;
   width: 3.5rem;
   text-align: center;
   font-size: 2rem;
   border-radius: 10px;
   text-transform: uppercase;
-  background: lightgray;
-  opacity: 0.2;
+  background: rgb(245, 240, 240);
   transition: width 0.2s, height 0.2s;
 }
 
@@ -49,16 +48,19 @@ input {
   width: 4.5rem;
   background: unset;
   opacity: 1;
+  border: 1px solid black;
+
 }
 
 .correct {
   background: #42b983;
-  opacity: 1;
+  border: 1px solid black;
+  color: black;
+
 }
 
 .inCorrect {
   background: lightcoral;
-  opacity: 1;
 }
 
 @media only screen and (max-width: 600px) {

@@ -22,7 +22,7 @@
           <h1>⭐️</h1>
         </div>
       </transition>
-      <div class="scoreBoard">
+      <div class="scoreBoard"  v-if="words.length > 0">
         <span class="score-label">Poäng:</span>
         <span>{{score}}</span>
       </div>
@@ -82,6 +82,7 @@ export default {
   position: absolute;
   right: 1.5rem;
   bottom: 1.5rem;
+  z-index: 5;
 }
 
 .scoreBoard span {

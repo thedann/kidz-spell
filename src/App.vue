@@ -1,22 +1,11 @@
 <template>
   <div class="app-wrapper">
     <div id="app">
-      <div
-        id="mobile-nav"
-        v-bind:class="{menuIsOpen : mobileMenuIsOpen}"
-        v-on="mobileMenuIsOpen ? { click : closeMobileMenu } : {}"
-      >
-        <button v-on:click="toggleMobileMenu">
-          <img v-bind:class="{hidden : mobileMenuIsOpen }" :src="require('./assets/menu-alt.png')">
-          <img v-bind:style="{hidden : !mobileMenuIsOpen }" v-if="mobileMenuIsOpen" :src="require('./assets/close.png')">
-        </button>
-        <div class="mobile-menu" v-bind:class="{'mobile-menu-open' : mobileMenuIsOpen}">
-          <router-link to="/">Hem</router-link>
-          <router-link to="/game">Spela</router-link>
-          <router-link to="/create-game">Skapa ett spel</router-link>
-          <router-link to="/about">Om KidzSpell</router-link>
-        </div>
-      </div>
+      <MobileMenu
+        :mobileMenuIsOpen="mobileMenuIsOpen"
+        :toggleMobileMenu="toggleMobileMenu"
+        :closeMobileMenu="closeMobileMenu"
+      ></MobileMenu>
       <div id="nav">
         <router-link to="/">Hem</router-link>
         <router-link to="/game">Spela</router-link>
@@ -32,9 +21,13 @@
 
 <script>
 import { getQuestionsFromLocalStorage } from "@/utils/util.js";
+import MobileMenu from "@/components/MobileMenu.vue";
 
 export default {
   name: "App",
+  components: {
+    MobileMenu
+  },
   data: () => {
     return {
       questions: getQuestionsFromLocalStorage(),
@@ -116,6 +109,7 @@ body {
 
 #mobile-nav {
   display: none;
+  z-index: 10;
 }
 
 @media only screen and (max-width: 600px) {
@@ -127,7 +121,7 @@ body {
   #app {
     min-height: 98vh;
     border-radius: 10px;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     padding: 0.5rem;
   }
   #nav {
@@ -158,7 +152,7 @@ body {
   #mobile-nav button img {
     max-width: 100%;
     max-height: 100%;
-    background: './assets/menu-alt.png'
+    background: "./assets/menu-alt.png";
   }
 
   .mobile-menu {
@@ -172,7 +166,7 @@ body {
     height: 100vh;
     left: -100%;
     position: absolute;
-    transition: left .75s;
+    transition: left 0.75s;
   }
 
   .mobile-menu.mobile-menu-open {
