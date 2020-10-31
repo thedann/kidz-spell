@@ -1,6 +1,7 @@
 <template>
   <div>
     <h3>Skapa ett spel</h3>
+    <div class="text_wrapper">
 
     <input
       id="new_word"
@@ -10,7 +11,8 @@
       v-model="currentInput"
       placeholder="skriv ett ord"
     >
-    <br>
+    <input id="alt_word" type="text" maxlength="2" class="emoji_text" placeholder="🐶">
+    </div>
     <button
       class="button positive-button"
       v-on:click="addQuestion"
@@ -94,6 +96,15 @@ export default {
   color: lightgray;
 }
 
+.emoji_text {
+  min-height: 4rem;
+  font-size: 2rem;
+  width: 4rem;
+  position: absolute;
+  text-align: center;
+  margin-left: 2rem;
+}
+
 .button {
   min-height: 3rem;
   min-width: 15rem;
@@ -143,10 +154,31 @@ ul li {
   color: lightcoral;
 }
 
+.text_wrapper {
+  display: block;
+}
+
 @media only screen and (max-width: 600px) {
+  .text_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .text {
     font-size: 1rem;
-    min-width: 2rem;
+    min-width: 14rem;
+  }
+
+  .emoji_text {
+    min-height: 4rem;
+    font-size: 2rem;
+    width: 4rem;
+    position: relative;
+    text-align: center;
+    margin-left: 0;
+    margin-top: 1rem;
   }
 }
 </style>
