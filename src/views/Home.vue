@@ -11,9 +11,9 @@
       Klicka på länken
       <b>Skapa ett spel</b> uppe i huvudmenyn.
     </p>
-    <p>Här inne kan du lägga till ord i spelet som barnen spelar.</p>
+    <p>Här inne kan du lägga till frågor i spelet som barnen spelar.</p>
     <p>
-      Orden sparas bara i din webbläsare, så du behöver
+      Frågorna sparas bara i din webbläsare, så du behöver
       skapa spelet på samma enhet (dator, telefon, surfplatta) som du har tänkt att låta barnen spela på.
     </p>
     <p>
