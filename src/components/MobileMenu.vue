@@ -14,6 +14,7 @@
       <router-link to="/">Hem</router-link>
       <router-link to="/game">Spela</router-link>
       <router-link to="/create-game">Skapa ett spel</router-link>
+      <router-link to="fetch-game">Hämta ett spel</router-link>
       <router-link to="/about">Om KidzSpell</router-link>
     </div>
   </div>
@@ -32,6 +33,7 @@ export default {
 </script>
 
 <style>
+
 #mobile-nav {
   display: none;
   z-index: 10;
@@ -73,7 +75,7 @@ export default {
     top: 3rem;
     width: 100vw;
     display: flex;
-    height: 100vh;
+    height: 90vh;
     left: -100%;
     position: absolute;
     transition: left 0.75s;

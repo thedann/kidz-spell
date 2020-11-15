@@ -113,39 +113,6 @@ export default {
   color: lightgray;
 }
 
-.button {
-  min-height: 3rem;
-  min-width: 15rem;
-  margin-top: 1rem;
-  border-radius: 10px;
-  background: transparent;
-  text-decoration: none;
-}
-
-a.button {
-  padding: 0.5rem 2rem;
-  color: black;
-  margin-bottom: 2rem;
-}
-
-.button:hover {
-  background: #42b983;
-  cursor: pointer;
-}
-
-.positive-button {
-  border: 5px solid #42b983;
-}
-
-.negative-button {
-  border: 5px solid lightcoral;
-  min-width: 10rem;
-  margin-top: 3rem;
-}
-
-.negative-button:hover {
-  background: lightcoral;
-}
 
 ul {
   text-decoration: none;

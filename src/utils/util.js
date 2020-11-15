@@ -6,6 +6,11 @@ export function makeEmptyArray(original) {
   return copy;
 }
 
+export function convertQuestionsToShareString() {
+  const questions = getQuestionsFromLocalStorage();
+  const jsonQuestions = JSON.stringify(questions);
+}
+
 export function getQuestionsFromLocalStorage() {
   let itemsInStorage = localStorage.getItem("kidzspell:questions");
   let resultArray = [];

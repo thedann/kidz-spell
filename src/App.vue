@@ -6,12 +6,7 @@
         :toggleMobileMenu="toggleMobileMenu"
         :closeMobileMenu="closeMobileMenu"
       ></MobileMenu>
-      <div id="nav">
-        <router-link to="/">Hem</router-link>
-        <router-link to="/game">Spela</router-link>
-        <router-link to="/create-game">Skapa ett spel</router-link>
-        <router-link to="/about">Om KidzSpell</router-link>
-      </div>
+      <Menu></Menu>
       <div class="router-view-container">
         <router-view/>
       </div>
@@ -22,11 +17,13 @@
 <script>
 import { getQuestionsFromLocalStorage } from "@/utils/util.js";
 import MobileMenu from "@/components/MobileMenu.vue";
+import Menu from "@/components/Menu.vue";
 
 export default {
   name: "App",
   components: {
-    MobileMenu
+    MobileMenu,
+    Menu
   },
   data: () => {
     return {
@@ -82,34 +79,38 @@ body {
   display: none;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-  margin-right: 1rem;
+.button {
+  min-height: 3rem;
+  min-width: 15rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  background: transparent;
   text-decoration: none;
-  font-size: 1.25rem;
 }
 
-#nav a:last-child {
-  margin-right: 0;
+.button:hover {
+  background: #42b983;
+  cursor: pointer;
 }
 
-#nav a:hover {
-  border-bottom: 1px solid #2c3e50;
+.positive-button {
+  border: 5px solid #42b983;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-  border-bottom: 1px solid #42b983;
+.negative-button {
+  border: 5px solid lightcoral;
+  min-width: 10rem;
+  margin-top: 3rem;
 }
 
-#mobile-nav {
-  display: none;
-  z-index: 10;
+.negative-button:hover {
+  background: lightcoral;
+}
+
+a.button {
+  padding: 0.5rem 2rem;
+  color: black;
+  margin-bottom: 2rem;
 }
 
 @media only screen and (max-width: 600px) {
@@ -123,66 +124,6 @@ body {
     border-radius: 10px;
     margin-top: 2.5rem;
     padding: 0.5rem;
-  }
-  #nav {
-    display: none;
-  }
-
-  #mobile-nav {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: #42b983;
-    z-index: 20;
-  }
-
-  #mobile-nav.menuIsOpen {
-    position: fixed;
-  }
-
-  #mobile-nav button img {
-    max-width: 100%;
-    max-height: 100%;
-    background: "./assets/menu-alt.png";
-  }
-
-  .mobile-menu {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-content: flex-start;
-    background: #42b983;
-    top: 3rem;
-    width: 100vw;
-    display: flex;
-    height: 93vh;
-    left: -100%;
-    position: absolute;
-    transition: left 0.75s;
-  }
-
-  .mobile-menu.mobile-menu-open {
-    left: 0;
-  }
-
-  .mobile-menu a {
-    color: white;
-    font-size: 1.5rem;
-    text-decoration: none;
-    border-bottom: 1px solid white;
-    padding: 0.5rem 0;
-    display: inline;
-  }
-
-  .mobile-menu a:hover {
-    background: #42b983;
-    color: #2c3e50;
-  }
-
-  .mobile-menu a:last-child {
-    border-bottom: 0;
   }
 }
 

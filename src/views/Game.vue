@@ -11,7 +11,7 @@
       <div v-if="!complete">
         <h1 v-text="this.currentQuestion"></h1>
         <transition name="slide" v-if="this.clearedWord">
-          <span class="congratz">Hurra🙌! Du stavade rätt till {{this.currentQuestion}}</span>
+          <span class="congratz" v-text="this.wellDonePhrase"></span>
         </transition>
         <div class="wrapper">
           <transition name="fade" v-if="!this.clearedWord">
@@ -21,7 +21,7 @@
       </div>
       <transition name="fade">
         <div v-if="complete">
-          <h1>Hurra! Du stavade rätt till alla ord!</h1>
+          <h1>Hurra! Du klarade alla frågor! Bra jobbat!</h1>
           <h1>⭐️</h1>
         </div>
       </transition>
@@ -47,7 +47,8 @@ export default {
       words: getQuestionsFromLocalStorage(),
       currentQuestionIndex: 0,
       complete: false,
-      clearedWord: false
+      clearedWord: false,
+      wellDonePhrase: ""
     };
   },
   computed: {
@@ -72,6 +73,7 @@ export default {
       const correctAnswer = currentItem.answer;
       if (input === correctAnswer) {
         this.score++;
+        this.wellDonePhrase = generateWellDonePhrase();
         if (this.words.length > this.currentQuestionIndex + 1) {
           this.clearedWord = true;
           setTimeout(() => {
@@ -85,6 +87,33 @@ export default {
     }
   }
 };
+
+function generateWellDonePhrase() {
+  const randomNumber = Math.floor(Math.random() * 6 + 1);
+  let phrase = "";
+
+  switch (randomNumber) {
+    case 1:
+      phrase = "Snyggt👍 Du svarade rätt";
+      break;
+    case 2:
+      phrase = "Bra där🙌 Du svarade rätt";
+      break;
+    case 3:
+      phrase = "Du kan ju💪 Du svarade rätt";
+      break;
+    case 4:
+      phrase = "Bra jobbat✍️ Du svarade rätt";
+      break;
+    case 5:
+      phrase = "Kalas🍰 Du svarade rätt";
+      break;
+    default:
+      phrase = "Nice😎 Du svarade rätt";
+      break;
+  }
+  return phrase;
+}
 </script>
 
 <style scoped>
@@ -119,11 +148,6 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-
-/* .slide-enter-active,
-.slide-leace-active {
-  transition: 
-} */
 </style>
 
 
