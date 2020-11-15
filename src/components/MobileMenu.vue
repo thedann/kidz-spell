@@ -4,15 +4,12 @@
     v-bind:class="{menuIsOpen : mobileMenuIsOpen}"
     v-on="mobileMenuIsOpen ? { click : closeMobileMenu } : {}"
   >
-    <!-- <button v-on:click="toggleMobileMenu">
-          <img v-bind:class="{hidden : mobileMenuIsOpen }" :src="require('../assets/menu-alt.png')">
-          <img v-bind:style="{hidden : !mobileMenuIsOpen }" v-if="mobileMenuIsOpen" :src="require('../assets/close.png')">
-    </button>-->
-    <div class="container" v-bind:class="{'change' : mobileMenuIsOpen}" v-on:click="toggleMobileMenu">
-      <div class="bar1"></div>
-      <div class="bar2"></div>
-      <div class="bar3"></div>
-    </div>
+    <button class="menu-button" v-bind:class="{'change' : mobileMenuIsOpen}" v-on:click="toggleMobileMenu">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </button>
+
     <div class="mobile-menu" v-bind:class="{'mobile-menu-open' : mobileMenuIsOpen}">
       <router-link to="/">Hem</router-link>
       <router-link to="/game">Spela</router-link>
@@ -30,8 +27,7 @@ export default {
     toggleMobileMenu: Function,
     closeMobileMenu: Function
   },
-  methods: {
-  }
+  methods: {}
 };
 </script>
 
@@ -107,11 +103,12 @@ export default {
 }
 
 /* ------------- Menu icon CSS below ------------- */
-.container {
+.menu-button {
   display: inline-block;
   cursor: pointer;
   margin-left: 10px;
   margin-top: 5px;
+  height: 3rem;
 }
 
 .bar1,

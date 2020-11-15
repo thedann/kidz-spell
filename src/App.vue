@@ -143,14 +143,6 @@ body {
     position: fixed;
   }
 
-  #mobile-nav button {
-    width: 5rem;
-    height: 3rem;
-    background: transparent;
-    border: 0;
-    z-index: 15;
-  }
-
   #mobile-nav button img {
     max-width: 100%;
     max-height: 100%;
@@ -165,7 +157,7 @@ body {
     top: 3rem;
     width: 100vw;
     display: flex;
-    height: 90vh;
+    height: 93vh;
     left: -100%;
     position: absolute;
     transition: left 0.75s;
