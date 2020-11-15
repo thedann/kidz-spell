@@ -3,7 +3,7 @@
     <h1>Välkommen till Kidzspell!</h1>
 
     <p>
-      Kidzspell är ett enkelt spel som hjälper barn att lära sig stava,
+      Kidzspell är ett enkelt frågespel där barn lär sig att stava,
       samt att lära sig känna igen symboler på tangentbordet.
     </p>
 

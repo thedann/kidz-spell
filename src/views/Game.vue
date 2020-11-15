@@ -53,11 +53,17 @@ export default {
   computed: {
     currentQuestion: function() {
       const item = this.words[this.currentQuestionIndex];
-      return item.question;
+      if (item) {
+        return item.question;
+      }
+      return "";
     },
     currentAnswer: function() {
       const item = this.words[this.currentQuestionIndex];
-      return item.answer;
+      if (item) {
+        return item.answer;
+      }
+      return "";
     }
   },
   methods: {
@@ -90,7 +96,7 @@ export default {
 .scoreBoard {
   position: absolute;
   right: 1.5rem;
-  bottom: 1.5rem;
+  bottom: 5.5rem;
   z-index: 5;
 }
 

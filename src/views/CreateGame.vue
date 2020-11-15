@@ -5,7 +5,7 @@
     <input
       id="new_word"
       type="text"
-      class="text"
+      class="text question"
       v-on:keyup.enter="addQuestion"
       v-model="currentQuestion"
       placeholder="skriv en fråga"
@@ -29,7 +29,10 @@
 
     <ul>
       <li v-for="(item, index) in questions" :key="index">
-        {{item.question}}
+        <div>
+          <span>{{item.question}}</span>
+          <span class="answer-span">{{item.answer}}</span>
+        </div>
         <span class="remove-item" @click="removeQuestion(index)">
           <b>X</b>
         </span>
@@ -95,11 +98,15 @@ export default {
 
 <style scoped>
 .text {
-  min-width: 20rem;
-  min-height: 4rem;
+  width: 30rem;
+  height: 4rem;
   font-size: 2rem;
   text-transform: uppercase;
   text-align: center;
+}
+
+.text.question {
+  width: 35rem;
 }
 
 .text::placeholder {
@@ -144,10 +151,23 @@ ul {
   text-decoration: none;
   list-style-type: none;
   padding: 0;
+  overflow: hidden;
 }
 
 ul li {
   font-size: 1.5rem;
+  position: relative;
+}
+
+ul li div {
+  display: flex;
+  flex-direction: column;
+}
+
+.remove-item {
+  position: absolute;
+  top: 1.2rem;
+  right: 2rem;
 }
 
 .remove-item:hover {
@@ -155,10 +175,20 @@ ul li {
   color: lightcoral;
 }
 
+.answer-span {
+  font-size: 1rem;
+  color: grey
+}
+
 @media only screen and (max-width: 600px) {
   .text {
     font-size: 1rem;
-    min-width: 2rem;
+    width: 16rem;
+  }
+
+  .text.question {
+    font-size: 1rem;
+    width: 16rem;
   }
 }
 </style>

@@ -115,11 +115,11 @@ body {
 @media only screen and (max-width: 600px) {
   .app-wrapper {
     display: block;
-    min-height: 100vh;
+    min-height: 97.6vh;
   }
 
   #app {
-    min-height: 98vh;
+    min-height: 80vh;
     border-radius: 10px;
     margin-top: 2.5rem;
     padding: 0.5rem;
@@ -136,6 +136,7 @@ body {
     top: 0;
     width: 100%;
     background: #42b983;
+    z-index: 20;
   }
 
   #mobile-nav.menuIsOpen {
@@ -147,6 +148,7 @@ body {
     height: 3rem;
     background: transparent;
     border: 0;
+    z-index: 15;
   }
 
   #mobile-nav button img {
@@ -163,7 +165,7 @@ body {
     top: 3rem;
     width: 100vw;
     display: flex;
-    height: 100vh;
+    height: 90vh;
     left: -100%;
     position: absolute;
     transition: left 0.75s;

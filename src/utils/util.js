@@ -19,6 +19,7 @@ export function getQuestionsFromLocalStorage() {
 
 export function addQuestionToLocalStorage(question, answer) {
   answer = answer.toUpperCase();
+  question = question.toUpperCase();
   let existingQuestions = getQuestionsFromLocalStorage();
   const item = {question, answer};
   existingQuestions.push(item);
