@@ -2,17 +2,20 @@
   <div>
     <div v-if="words.length === 0">
       <h3>Du har inte skapat ett spel ännu</h3>
-      <p>Vänligen gå in på <b>Skapa ett spel</b> för att skapa ett spel</p>
+      <p>
+        Vänligen gå in på
+        <b>Skapa ett spel</b> för att skapa ett spel
+      </p>
     </div>
     <div v-if="words">
       <div v-if="!complete">
-        <h1 v-text="this.currentWord"></h1>
+        <h1 v-text="this.currentQuestion"></h1>
         <transition name="slide" v-if="this.clearedWord">
-          <span class="congratz">Hurra🙌! Du stavade rätt till {{this.currentWord}}</span>
+          <span class="congratz">Hurra🙌! Du stavade rätt till {{this.currentQuestion}}</span>
         </transition>
-        <div class="wrapper" >
+        <div class="wrapper">
           <transition name="fade" v-if="!this.clearedWord">
-            <WordBoxes :callBack="this.updateScore" :word="this.currentWord"></WordBoxes>
+            <WordBoxes :callBack="this.updateScore" :word="this.currentAnswer"></WordBoxes>
           </transition>
         </div>
       </div>
@@ -22,7 +25,7 @@
           <h1>⭐️</h1>
         </div>
       </transition>
-      <div class="scoreBoard"  v-if="words.length > 0">
+      <div class="scoreBoard" v-if="words.length > 0">
         <span class="score-label">Poäng:</span>
         <span>{{score}}</span>
       </div>
@@ -42,25 +45,31 @@ export default {
     return {
       score: 0,
       words: getQuestionsFromLocalStorage(),
-      currentWordIndex: 0,
+      currentQuestionIndex: 0,
       complete: false,
       clearedWord: false
     };
   },
   computed: {
-    currentWord: function() {
-      return this.words[this.currentWordIndex];
+    currentQuestion: function() {
+      const item = this.words[this.currentQuestionIndex];
+      return item.question;
+    },
+    currentAnswer: function() {
+      const item = this.words[this.currentQuestionIndex];
+      return item.answer;
     }
   },
   methods: {
     updateScore(input) {
-      const correctWord = this.words[this.currentWordIndex];
-      if (input === correctWord) {
+      const currentItem = this.words[this.currentQuestionIndex];
+      const correctAnswer = currentItem.answer;
+      if (input === correctAnswer) {
         this.score++;
-        if (this.words.length > this.currentWordIndex + 1) {
+        if (this.words.length > this.currentQuestionIndex + 1) {
           this.clearedWord = true;
           setTimeout(() => {
-            this.currentWordIndex++;
+            this.currentQuestionIndex++;
             this.clearedWord = false;
           }, 1500);
         } else {

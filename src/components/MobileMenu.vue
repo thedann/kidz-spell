@@ -31,12 +31,6 @@ export default {
     closeMobileMenu: Function
   },
   methods: {
-    toggleIcon(e) {
-      console.log(e)
-      const target = e.event.target;
-      console.log(target);
-      // element.classList.toggle("change");
-    }
   }
 };
 </script>

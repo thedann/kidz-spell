@@ -7,20 +7,21 @@ export function makeEmptyArray(original) {
 }
 
 export function getQuestionsFromLocalStorage() {
-  let keyExist = localStorage.getItem("kidzspell:questions");
+  let itemsInStorage = localStorage.getItem("kidzspell:questions");
   let resultArray = [];
 
-  if (keyExist) {
-    resultArray = JSON.parse(localStorage.getItem("kidzspell:questions"));
+  if (itemsInStorage) {
+    resultArray = JSON.parse(itemsInStorage);
   }
 
   return resultArray;
 }
 
-export function addQuestionToLocalStorage(question) {
-  question = question.toUpperCase();
+export function addQuestionToLocalStorage(question, answer) {
+  answer = answer.toUpperCase();
   let existingQuestions = getQuestionsFromLocalStorage();
-  existingQuestions.push(question);
+  const item = {question, answer};
+  existingQuestions.push(item);
   const questionsToSave = JSON.stringify(existingQuestions);
 
   localStorage.setItem("kidzspell:questions", questionsToSave);

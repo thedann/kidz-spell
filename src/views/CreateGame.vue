@@ -7,8 +7,18 @@
       type="text"
       class="text"
       v-on:keyup.enter="addQuestion"
-      v-model="currentInput"
-      placeholder="skriv ett ord"
+      v-model="currentQuestion"
+      placeholder="skriv en fråga"
+    >
+    <br>
+    <br>
+    <input
+      id="new_answer"
+      type="text"
+      class="text"
+      v-on:keyup.enter="addQuestion"
+      v-model="currentAnswer"
+      placeholder="skriv ett svar"
     >
     <br>
     <button
@@ -18,8 +28,8 @@
     >Lägg till ord i spelet</button>
 
     <ul>
-      <li v-for="(question, index) in questions" :key="index">
-        {{question}}
+      <li v-for="(item, index) in questions" :key="index">
+        {{item.question}}
         <span class="remove-item" @click="removeQuestion(index)">
           <b>X</b>
         </span>
@@ -52,7 +62,8 @@ export default {
   name: "CreateGame",
   data: () => {
     return {
-      currentInput: "",
+      currentQuestion: "",
+      currentAnswer: "",
       questions: getQuestionsFromLocalStorage()
     };
   },
@@ -63,10 +74,11 @@ export default {
   },
   methods: {
     addQuestion: function() {
-      if (this.currentInput) {
-        addQuestionToLocalStorage(this.currentInput);
+      if (this.currentQuestion) {
+        addQuestionToLocalStorage(this.currentQuestion, this.currentAnswer);
         this.questions = getQuestionsFromLocalStorage();
-        this.currentInput = "";
+        this.currentQuestion = "";
+        this.currentAnswer = "";
       }
     },
     removeAllQuestions: function() {
