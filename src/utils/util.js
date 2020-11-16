@@ -1,3 +1,4 @@
+import { encodeBase64, decodeBase64 } from "./base64Util";
 export function makeEmptyArray(original) {
   let copy = [];
   for (let index = 0; index < original.length; index++) {
@@ -9,6 +10,14 @@ export function makeEmptyArray(original) {
 export function convertQuestionsToShareString() {
   const questions = getQuestionsFromLocalStorage();
   const jsonQuestions = JSON.stringify(questions);
+  const base64String = encodeBase64(jsonQuestions);
+  return base64String;
+}
+
+export function convertStringIntoQuiz(input) {
+  const decodedString = decodeBase64(input)
+  const questions = JSON.parse(decodedString);
+  return questions;
 }
 
 export function getQuestionsFromLocalStorage() {
@@ -26,7 +35,7 @@ export function addQuestionToLocalStorage(question, answer) {
   answer = answer.toUpperCase();
   question = question.toUpperCase();
   let existingQuestions = getQuestionsFromLocalStorage();
-  const item = {question, answer};
+  const item = { question, answer };
   existingQuestions.push(item);
   const questionsToSave = JSON.stringify(existingQuestions);
 

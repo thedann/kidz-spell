@@ -2,24 +2,52 @@
   <div class="fetch-game">
     <h2>Hämta ett KidzSpell-spel som någon annan skapat</h2>
     <br>
-    <input class="text">
+    <input class="text" v-model="code">
     <br>
     <br>
     <button
       class="button positive-button"
-      v-on:click="fetchGame"
+      v-on:click="convertStringToGame"
       type="button"
     >Hämta någons spel</button>
     <br>
     <br>
     <button
       class="button positive-button"
-      v-on:click="sendGame"
+      v-on:click="convertGameToString"
       type="button"
     >Dela ditt spel som länk</button>
     <span></span>
   </div>
 </template>
+
+<script>
+import {
+  convertQuestionsToShareString,
+  convertStringIntoQuiz
+} from "@/utils/util.js";
+
+export default {
+  name: "FetchGame",
+  props: {},
+  data: () => {
+    return {
+      code: ""
+    };
+  },
+  methods: {
+    convertGameToString: function() {
+      const urlString = convertQuestionsToShareString();
+      console.log("url string ", urlString);
+    },
+    convertStringToGame: function() {
+      const questions = convertStringIntoQuiz(this.code);
+      console.log(questions);
+    }
+  }
+};
+</script>
+
 
 <style scoped>
 .text {
