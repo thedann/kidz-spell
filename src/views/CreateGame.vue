@@ -1,43 +1,47 @@
 <template>
   <div>
     <h3>Skapa ett spel</h3>
-
-    <input
-      id="new_word"
-      type="text"
-      class="text question"
-      v-on:keyup.enter="addQuestion"
-      v-model="currentQuestion"
-      placeholder="skriv en fråga"
-    >
-    <br>
-    <br>
-    <input
-      id="new_answer"
-      type="text"
-      class="text"
-      v-on:keyup.enter="addQuestion"
-      v-model="currentAnswer"
-      placeholder="skriv ett svar"
-    >
-    <br>
-    <button
-      class="button positive-button"
-      v-on:click="addQuestion"
-      type="button"
-    >Lägg till ord i spelet</button>
-
-    <ul>
-      <li v-for="(item, index) in questions" :key="index">
-        <div>
-          <span>{{item.question}}</span>
-          <span class="answer-span">{{item.answer}}</span>
-        </div>
-        <span class="remove-item" @click="removeQuestion(index)">
-          <b>X</b>
-        </span>
-      </li>
-    </ul>
+    <div class="container">
+      <div class="create-question-container">
+        <input
+          id="new_word"
+          type="text"
+          class="text question"
+          v-on:keyup.enter="addQuestion"
+          v-model="currentQuestion"
+          placeholder="skriv en fråga"
+        >
+        <br>
+        <br>
+        <input
+          id="new_answer"
+          type="text"
+          class="text"
+          v-on:keyup.enter="addQuestion"
+          v-model="currentAnswer"
+          placeholder="skriv ett svar"
+        >
+        <br>
+        <button
+          class="button positive-button"
+          v-on:click="addQuestion"
+          type="button"
+        >Lägg till ord i spelet</button>
+      </div>
+      <div class="questions-container">
+        <ul>
+          <li v-for="(item, index) in questions" :key="index">
+            <div>
+              <span>{{item.question}}</span>
+              <span class="answer-span">{{item.answer}}</span>
+            </div>
+            <span class="remove-item" @click="removeQuestion(index)">
+              <b>X</b>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
     <br>
     <router-link v-if="questions.length > 0" class="button positive-button" to="/game">
@@ -98,21 +102,30 @@ export default {
 
 <style scoped>
 .text {
-  width: 30rem;
+  width: 25rem;
   height: 4rem;
-  font-size: 2rem;
+  font-size: 1.25rem;
   text-transform: uppercase;
   text-align: center;
 }
 
 .text.question {
-  width: 35rem;
+  width: 25rem;
 }
 
 .text::placeholder {
   color: lightgray;
 }
 
+.container {
+  display: flex;
+}
+
+.questions-container {
+  display: flex;
+  justify-content: center;
+  width: 30rem;
+}
 
 ul {
   text-decoration: none;
@@ -144,10 +157,27 @@ ul li div {
 
 .answer-span {
   font-size: 1rem;
-  color: grey
+  color: grey;
+}
+
+.create-question-container {
+  margin-left: 2rem;
 }
 
 @media only screen and (max-width: 600px) {
+  .container {
+    display: block;
+  }
+
+  .questions-container {
+    display: block;
+    width: auto;
+  }
+
+  .create-question-container {
+  margin-left: unset;
+}
+
   .text {
     font-size: 1rem;
     width: 16rem;
