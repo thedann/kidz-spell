@@ -167,7 +167,6 @@ ul li div {
 }
 
 .create-question-container {
-  margin-left: 2rem;
 }
 
 @media only screen and (max-width: 600px) {

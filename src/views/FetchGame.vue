@@ -17,7 +17,19 @@
       v-on:click="convertGameToString"
       type="button"
     >Dela ditt spel som länk</button>
-    <span></span>
+    <div class="game-string">
+      <p v-text="gameAsString"></p>
+    </div>
+    <div class="game-from-string">
+      <ul>
+        <li v-for="(item, index) in questionsFromString" :key="index">
+          <div>
+            <span>{{item.question}}</span>
+            <span class="answer-span">{{item.answer}}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -32,17 +44,19 @@ export default {
   props: {},
   data: () => {
     return {
-      code: ""
+      code: "",
+      gameAsString: "",
+      questionsFromString: [],
     };
   },
   methods: {
     convertGameToString: function() {
       const urlString = convertQuestionsToShareString();
-      console.log("url string ", urlString);
+      this.gameAsString = urlString;
     },
     convertStringToGame: function() {
       const questions = convertStringIntoQuiz(this.code);
-      console.log(questions);
+      this.questionsFromString = questions;
     }
   }
 };
@@ -57,5 +71,13 @@ export default {
   text-transform: uppercase;
   text-align: center;
 }
+
+.game-string {
+  margin: 2rem auto 0;
+  max-width: 25rem;
+  text-align: center;
+  word-break: break-all;
+}
+
 </style>
 
