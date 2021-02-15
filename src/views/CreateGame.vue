@@ -22,6 +22,8 @@
           placeholder="skriv ett svar"
         >
         <br>
+        <span class="error" v-text="validationError" />
+        <br>
         <button
           class="button positive-button"
           v-on:click="addQuestion"
@@ -71,6 +73,7 @@ export default {
     return {
       currentQuestion: "",
       currentAnswer: "",
+      validationError: "",
       questions: getQuestionsFromLocalStorage()
     };
   },
@@ -81,11 +84,16 @@ export default {
   },
   methods: {
     addQuestion: function() {
-      if (this.currentQuestion) {
+      if(!this.currentQuestion || !this.currentAnswer) {
+        console.log(this.validationError);
+        this.validationError = "Du behöver fylla i bägge";
+      } else if (this.currentQuestion) {
         addQuestionToLocalStorage(this.currentQuestion, this.currentAnswer);
         this.questions = getQuestionsFromLocalStorage();
+        this.validationError = "";
         this.currentQuestion = "";
         this.currentAnswer = "";
+        setFocus("new_word");
       }
     },
     removeAllQuestions: function() {
@@ -118,13 +126,11 @@ export default {
 }
 
 .container {
-  display: flex;
+
 }
 
 .questions-container {
-  display: flex;
-  justify-content: center;
-  width: 30rem;
+
 }
 
 ul {

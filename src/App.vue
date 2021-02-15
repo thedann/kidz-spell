@@ -107,6 +107,10 @@ body {
   background: lightcoral;
 }
 
+.error {
+  color: lightcoral;
+}
+
 a.button {
   padding: 0.5rem 2rem;
   color: black;
