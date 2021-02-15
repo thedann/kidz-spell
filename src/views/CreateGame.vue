@@ -93,7 +93,7 @@ export default {
         this.validationError = "";
         this.currentQuestion = "";
         this.currentAnswer = "";
-        setFocus("new_word"); 
+        setFocus("new_word");
       }
     },
     removeAllQuestions: function() {
