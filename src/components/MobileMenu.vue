@@ -32,6 +32,7 @@ export default {
 </script>
 
 <style>
+
 #mobile-nav {
   display: none;
   z-index: 10;
@@ -73,7 +74,7 @@ export default {
     top: 3rem;
     width: 100vw;
     display: flex;
-    height: 100vh;
+    height: 90vh;
     left: -100%;
     position: absolute;
     transition: left 0.75s;
