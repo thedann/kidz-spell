@@ -14,7 +14,6 @@
       <router-link to="/">Hem</router-link>
       <router-link to="/game">Spela</router-link>
       <router-link to="/create-game">Skapa ett spel</router-link>
-      <router-link to="fetch-game">Hämta ett spel</router-link>
       <router-link to="/about">Om KidzSpell</router-link>
     </div>
   </div>

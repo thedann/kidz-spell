@@ -10,9 +10,9 @@
           v-on:keyup.enter="addQuestion"
           v-model="currentQuestion"
           placeholder="skriv en fråga"
-        >
-        <br>
-        <br>
+        />
+        <br />
+        <br />
         <input
           id="new_answer"
           type="text"
@@ -20,22 +20,32 @@
           v-on:keyup.enter="addQuestion"
           v-model="currentAnswer"
           placeholder="skriv ett svar"
-        >
-        <br>
+        />
+        <br />
         <span class="error" v-text="validationError" />
-        <br>
+        <br />
         <button
           class="button positive-button"
           v-on:click="addQuestion"
           type="button"
-        >Lägg till ord i spelet</button>
+        >
+          Lägg till ord i spelet
+        </button>
+        <br /><br />
+        <button
+          class="button positive-button"
+          v-on:click="convertGameToString"
+          type="button"
+        >
+          Dela ditt spel som länk
+        </button>
       </div>
       <div class="questions-container">
         <ul>
           <li v-for="(item, index) in questions" :key="index">
             <div>
-              <span>{{item.question}}</span>
-              <span class="answer-span">{{item.answer}}</span>
+              <span>{{ item.question }}</span>
+              <span class="answer-span">{{ item.answer }}</span>
             </div>
             <span class="remove-item" @click="removeQuestion(index)">
               <b>X</b>
@@ -45,17 +55,29 @@
       </div>
     </div>
 
-    <br>
-    <router-link v-if="questions.length > 0" class="button positive-button" to="/game">
+    <br />
+    <router-link
+      v-if="questions.length > 0"
+      class="button positive-button"
+      to="/game"
+    >
       <span>Spela</span>
     </router-link>
-    <br>
+    <br />
     <button
       v-if="questions.length > 0"
       class="button negative-button"
       v-on:click="removeAllQuestions"
       type="button"
-    >Rensa spelet</button>
+    >
+      Rensa spelet
+    </button>
+    <textarea
+      id="game-as-string"
+      style="display:hidden"
+      class="hidden-copy-area"
+      v-model="this.gameAsString"
+    ></textarea>
   </div>
 </template>
 
@@ -65,7 +87,9 @@ import {
   addQuestionToLocalStorage,
   cleanLocalStorage,
   removeQuestionFromLocalStorage,
-  setFocus
+  convertQuestionsToShareString,
+  setFocus,
+  copyToClipboard,
 } from "@/utils/util.js";
 export default {
   name: "CreateGame",
@@ -74,7 +98,8 @@ export default {
       currentQuestion: "",
       currentAnswer: "",
       validationError: "",
-      questions: getQuestionsFromLocalStorage()
+      gameAsString: "",
+      questions: getQuestionsFromLocalStorage(),
     };
   },
   mounted: function() {
@@ -84,8 +109,7 @@ export default {
   },
   methods: {
     addQuestion: function() {
-      if(!this.currentQuestion || !this.currentAnswer) {
-        console.log(this.validationError);
+      if (!this.currentQuestion || !this.currentAnswer) {
         this.validationError = "Du behöver fylla i bägge";
       } else if (this.currentQuestion) {
         addQuestionToLocalStorage(this.currentQuestion, this.currentAnswer);
@@ -103,8 +127,15 @@ export default {
     removeQuestion: function(index) {
       removeQuestionFromLocalStorage(index);
       this.questions.splice(index, 1);
-    }
-  }
+    },
+    convertGameToString: function() {
+      const urlString = convertQuestionsToShareString();
+      this.gameAsString = urlString;
+      setTimeout(() => {
+        copyToClipboard('game-as-string');
+      }, 100)
+    },
+  },
 };
 </script>
 
@@ -125,12 +156,9 @@ export default {
   color: lightgray;
 }
 
-.container {
-
-}
-
-.questions-container {
-
+.hidden-copy-area {
+  z-index: -1000;
+  position: absolute;
 }
 
 ul {
@@ -166,9 +194,6 @@ ul li div {
   color: grey;
 }
 
-.create-question-container {
-}
-
 @media only screen and (max-width: 600px) {
   .container {
     display: block;
@@ -180,8 +205,8 @@ ul li div {
   }
 
   .create-question-container {
-  margin-left: unset;
-}
+    margin-left: unset;
+  }
 
   .text {
     font-size: 1rem;
@@ -194,5 +219,3 @@ ul li div {
   }
 }
 </style>
-
-

@@ -5,43 +5,50 @@
       <b>KidzSpell</b> är ett enkelt spel som hjälper barn att lära sig stava,
       samt att lära sig känna igen symboler på tangentbordet.
     </p>
-
-    <h3>Kom igång!</h3>
-    <p>
-      Klicka på länken
-      <b>Skapa ett spel</b> uppe i huvudmenyn.
-    </p>
-    <p>Här inne kan du lägga till frågor i spelet som barnen spelar.</p>
-    <p>
-      Frågorna sparas bara i din webbläsare, så du behöver
-      skapa spelet på samma enhet (dator, telefon, surfplatta) som du har tänkt att låta barnen spela på.
-    </p>
-    <p>
-      Där går jättebra att stänga ner webbläsaren och surfa in till
-      <b>KidzSpell</b> igen senare.
-      <br>Dina frågor kommer vara sparade.
-    </p>
-
-    <p>
-      När du har skapat spelet i
-      <b>Skapa ett spel</b>, så kan du klicka in på
-      <b>Spela</b> för att börja spela.
-    </p>
-    <p>
-      <br>
-    </p>
+    <div>
+      <br /><span style="display:none" v-text="quiz"></span><br />
+      <div>
+        <router-link
+          v-if="questions.length === 0"
+          class="button positive-button"
+          to="/create-game"
+        >
+          <span>Skapa Spel</span>
+        </router-link>
+        <router-link
+          v-if="questions.length > 0"
+          class="button positive-button"
+          to="/game"
+        >
+          <span>Starta Spel</span>
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import {
+  getQuestionsFromLocalStorage,
+  readQuizFromQueryString,
+} from "../utils/util";
 export default {
   name: "Home",
-  components: {}
+  data: () => ({
+    questions: getQuestionsFromLocalStorage(),
+  }),
+  components: {},
+  computed: {
+    quiz: function () {
+      if(this.questions.length === 0) {
+        return readQuizFromQueryString()
+      } 
+      return false;
+    }
+    // readQuizFromQueryString()
+  }
 };
 </script>
 
-<style scoped>
-</style>
-
+<style scoped></style>
