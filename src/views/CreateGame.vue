@@ -12,7 +12,6 @@
           placeholder="skriv en fråga"
         />
         <br />
-        <br />
         <input
           id="new_answer"
           type="text"
@@ -21,9 +20,7 @@
           v-model="currentAnswer"
           placeholder="skriv ett svar"
         />
-        <br />
         <span class="error" v-text="validationError" />
-        <br />
         <button
           class="button positive-button"
           v-on:click="addQuestion"
@@ -31,14 +28,18 @@
         >
           Lägg till ord i spelet
         </button>
-        <br /><br />
-        <button
-          class="button positive-button"
-          v-on:click="convertGameToString"
-          type="button"
-        >
-          Dela ditt spel som länk
-        </button>
+        <div class="share-container">
+          <button
+            class="button positive-button"
+            v-on:click="convertGameToString"
+            type="button"
+          >
+            Dela ditt spel som länk
+          </button>
+          <transition name="fade" v-if="this.didACopy">
+            <span>Kopierat!</span>
+          </transition>
+        </div>
       </div>
       <div class="questions-container">
         <ul>
@@ -100,6 +101,7 @@ export default {
       validationError: "",
       gameAsString: "",
       questions: getQuestionsFromLocalStorage(),
+      didACopy: false,
     };
   },
   mounted: function() {
@@ -132,8 +134,12 @@ export default {
       const urlString = convertQuestionsToShareString();
       this.gameAsString = urlString;
       setTimeout(() => {
-        copyToClipboard('game-as-string');
-      }, 100)
+        copyToClipboard("game-as-string");
+        this.didACopy = true;
+      }, 100);
+      setTimeout(() => {
+        this.didACopy = false;
+      }, 1500);
     },
   },
 };
@@ -194,20 +200,29 @@ ul li div {
   color: grey;
 }
 
+.create-question-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.questions-container {
+  display: block;
+  width: 100%;
+}
+
+.share-container {
+  position: relative;
+}
+
+.share-container span {
+  position: absolute;
+  right: -68px;
+  top: 1.75rem;
+}
+
 @media only screen and (max-width: 600px) {
-  .container {
-    display: block;
-  }
-
-  .questions-container {
-    display: block;
-    width: auto;
-  }
-
-  .create-question-container {
-    margin-left: unset;
-  }
-
   .text {
     font-size: 1rem;
     width: 16rem;
