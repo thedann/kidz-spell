@@ -9,14 +9,14 @@
       <br /><span style="display:none" v-text="quiz"></span><br />
       <div>
         <router-link
-          v-if="questions.length === 0"
+          v-if="!quiz"
           class="button positive-button"
           to="/create-game"
         >
           <span>Skapa Spel</span>
         </router-link>
         <router-link
-          v-if="questions.length > 0"
+          v-if="quiz"
           class="button positive-button"
           to="/game"
         >
@@ -42,11 +42,11 @@ export default {
   computed: {
     quiz: function () {
       if(this.questions.length === 0) {
-        return readQuizFromQueryString()
+        readQuizFromQueryString();
+        return true;
       } 
       return false;
     }
-    // readQuizFromQueryString()
   }
 };
 </script>

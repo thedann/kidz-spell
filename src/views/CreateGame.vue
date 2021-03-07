@@ -75,7 +75,6 @@
     </button>
     <textarea
       id="game-as-string"
-      style="display:hidden"
       class="hidden-copy-area"
       v-model="this.gameAsString"
     ></textarea>
@@ -165,6 +164,9 @@ export default {
 .hidden-copy-area {
   z-index: -1000;
   position: absolute;
+  left: 0;
+  width: 0;
+  overflow: hidden;
 }
 
 ul {
@@ -223,6 +225,12 @@ ul li div {
 }
 
 @media only screen and (max-width: 600px) {
+  .share-container span {
+    top: 2.75rem;
+    right: 0;
+    left: 0;
+  }
+
   .text {
     font-size: 1rem;
     width: 16rem;
