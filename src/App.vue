@@ -131,6 +131,14 @@ a.button {
   }
 }
 
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
 input:focus,
 select:focus,
 textarea:focus,
