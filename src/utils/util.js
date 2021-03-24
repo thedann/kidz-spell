@@ -16,7 +16,7 @@ export function convertQuestionsToShareString() {
     console.log('is localjost');
     result = `http://${location.host}?q=${base64String}`;
   } else {
-    result = `${location.host}?q=${base64String}`;
+    result = `https://${location.host}?q=${base64String}`;
   }
   return result;
 }
