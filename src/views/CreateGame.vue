@@ -1,87 +1,96 @@
 <template>
   <div>
-    <h3>Skapa ett spel</h3>
-    <div class="container">
-      <div class="create-question-container">
-        <input
-          id="new_word"
-          type="text"
-          class="text question"
-          v-on:keyup.enter="addQuestion"
-          v-model="currentQuestion"
-          placeholder="skriv en fråga"
-        />
-        <br />
-        <input
-          id="new_answer"
-          type="text"
-          class="text"
-          v-on:keyup.enter="addQuestion"
-          v-model="currentAnswer"
-          placeholder="skriv ett svar"
-        />
-        <span class="error" v-text="validationError" />
-        <button
-          class="button positive-button"
-          v-on:click="addQuestion"
-          type="button"
-        >
-          Lägg till ord i spelet
-        </button>
-        <div class="share-container">
+    <div v-if="!this.isItMyGame">
+      <AlreadyHasGameLoaded>
+        
+      </AlreadyHasGameLoaded>
+    </div>
+    <div v-if="this.isItMyGame">
+      <h3>Skapa ett spel</h3>
+      <div class="container">
+        <div class="create-question-container">
+          <input
+            id="new_word"
+            type="text"
+            class="text question"
+            v-on:keyup.enter="addQuestion"
+            v-model="currentQuestion"
+            placeholder="skriv en fråga"
+          />
+          <br />
+          <input
+            id="new_answer"
+            type="text"
+            class="text"
+            v-on:keyup.enter="addQuestion"
+            v-model="currentAnswer"
+            placeholder="skriv ett svar"
+          />
+          <span class="error" v-text="validationError" />
           <button
             class="button positive-button"
-            v-on:click="convertGameToString"
+            v-on:click="addQuestion"
             type="button"
           >
-            Dela ditt spel som länk
+            Lägg till ord i spelet
           </button>
-          <transition name="fade" v-if="this.didACopy">
-            <span>Kopierat!</span>
-          </transition>
+          <div class="share-container">
+            <button
+              class="button positive-button"
+              v-on:click="convertGameToString"
+              type="button"
+            >
+              Dela ditt spel som länk
+            </button>
+            <transition name="fade" v-if="this.didACopy">
+              <span>Kopierat!</span>
+            </transition>
+          </div>
+        </div>
+        <div class="questions-container">
+          <ul>
+            <li v-for="(item, index) in questions" :key="index">
+              <div>
+                <span>{{ item.question }}</span>
+                <span class="answer-span">{{ item.answer }}</span>
+              </div>
+              <span class="remove-item" @click="removeQuestion(index)">
+                <b>X</b>
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="questions-container">
-        <ul>
-          <li v-for="(item, index) in questions" :key="index">
-            <div>
-              <span>{{ item.question }}</span>
-              <span class="answer-span">{{ item.answer }}</span>
-            </div>
-            <span class="remove-item" @click="removeQuestion(index)">
-              <b>X</b>
-            </span>
-          </li>
-        </ul>
-      </div>
-    </div>
 
-    <br />
-    <router-link
-      v-if="questions.length > 0"
-      class="button positive-button"
-      to="/game"
-    >
-      <span>Spela</span>
-    </router-link>
-    <br />
-    <button
-      v-if="questions.length > 0"
-      class="button negative-button"
-      v-on:click="removeAllQuestions"
-      type="button"
-    >
-      Rensa spelet
-    </button>
-    <textarea
-      id="game-as-string"
-      class="hidden-copy-area"
-      v-model="this.gameAsString"
-    ></textarea>
+      <br />
+      <router-link
+        v-if="questions.length > 0"
+        class="button positive-button"
+        to="/game"
+      >
+        <span>Spela</span>
+      </router-link>
+      <br />
+      <button
+        v-if="questions.length > 0"
+        class="button negative-button"
+        v-on:click="removeAllQuestions"
+        type="button"
+      >
+        Rensa spelet
+      </button>
+      <textarea
+        id="game-as-string"
+        class="hidden-copy-area"
+        v-model="this.gameAsString"
+      ></textarea>
+    </div>
   </div>
 </template>
 
 <script>
+import AlreadyHasGameLoaded from "@/components/AlreadyHasGameLoaded.vue";
+
 import {
   getQuestionsFromLocalStorage,
   addQuestionToLocalStorage,
@@ -90,9 +99,13 @@ import {
   convertQuestionsToShareString,
   setFocus,
   copyToClipboard,
+  isItMyGame,
 } from "@/utils/util.js";
 export default {
   name: "CreateGame",
+  components: {
+    AlreadyHasGameLoaded,
+  },
   data: () => {
     return {
       currentQuestion: "",
@@ -101,6 +114,7 @@ export default {
       gameAsString: "",
       questions: getQuestionsFromLocalStorage(),
       didACopy: false,
+      isItMyGame: isItMyGame(),
     };
   },
   mounted: function() {

@@ -55,6 +55,21 @@ export function addQuestionToLocalStorage(question, answer) {
 
 export function cleanLocalStorage() {
   localStorage.removeItem("kidzspell:questions");
+  localStorage.removeItem("kidzspell:loaded_game")
+  if(location.href.indexOf("?") > -1) {
+    console.log({'url' :location.href})
+    const urlWithoutQueryString = location.href.split("?")[0];
+    if(location.href.indexOf("create")) {
+      location.href = urlWithoutQueryString + '#/create-game';
+    } else {
+      location.href = urlWithoutQueryString;
+    }
+  }
+}
+
+export function isItMyGame() {
+  let isItMyGame = localStorage.getItem("kidzspell:loaded_game");
+  return !isItMyGame;
 }
 
 export function removeQuestionFromLocalStorage(index) {
@@ -72,13 +87,14 @@ export function readQuizFromQueryString() {
     quiz.forEach((row) => {
       addQuestionToLocalStorage(row.question, row.answer);
     });
+    localStorage.setItem("kidzspell:loaded_game", JSON.stringify({ a : true }));
   }
 }
 
 export function setFocus(id) {
   setTimeout(() => {
     const element = document.getElementById(id);
-    element.focus();
+    element?.focus();
   }, 10);
 }
 
